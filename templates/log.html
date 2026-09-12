@@ -1,0 +1,20 @@
+{% extends "base.html" %}{% block title %}Daily check-in — Lunelle{% endblock %}{% block content %}
+<div class="page-head"><div><span class="eyebrow">DAILY CHECK-IN</span><h1>How are you feeling?</h1><p class="lead compact">Log as much or as little as you want. Come back later and edit the same day.</p></div></div>
+<form class="panel form-grid" method="post">
+  <label>Date<input type="date" name="log_date" value="{{ today }}" required></label>
+  <label>Mood<select name="mood"><option value="">Choose</option>{% for x in ['Amazing','Great','Good','Okay','Low','Irritable','Anxious','Emotional'] %}<option {% if existing and existing.mood==x %}selected{% endif %}>{{ x }}</option>{% endfor %}</select></label>
+  <label>Pain / cramps <span id="painOut">{{ existing.pain if existing else 0 }}</span>/10<input type="range" name="pain" min="0" max="10" value="{{ existing.pain if existing else 0 }}" oninput="painOut.textContent=this.value"></label>
+  <label>Energy <span id="energyOut">{{ existing.energy if existing else 5 }}</span>/10<input type="range" name="energy" min="0" max="10" value="{{ existing.energy if existing else 5 }}" oninput="energyOut.textContent=this.value"></label>
+  <label>Stress <span id="stressOut">{{ existing.stress if existing else 0 }}</span>/10<input type="range" name="stress" min="0" max="10" value="{{ existing.stress if existing else 0 }}" oninput="stressOut.textContent=this.value"></label>
+  <label>Sleep hours<input type="number" name="sleep_hours" min="0" max="24" step="0.25" value="{{ existing.sleep_hours if existing and existing.sleep_hours is not none else '' }}" placeholder="7.5"></label>
+  <label>Water cups<input type="number" name="hydration" min="0" max="30" value="{{ existing.hydration if existing else 0 }}"></label>
+  <label>Flow<select name="flow">{% for x in ['','spotting','light','medium','heavy'] %}<option value="{{ x }}" {% if existing and existing.flow==x %}selected{% endif %}>{{ x or 'None' }}</option>{% endfor %}</select></label>
+  <label>Libido<select name="libido">{% for x in ['','Low','Normal','High'] %}<option {% if existing and existing.libido==x %}selected{% endif %}>{{ x or 'Not logged' }}</option>{% endfor %}</select></label>
+  <label>Discharge<select name="discharge">{% for x in ['','Dry','Sticky','Creamy','Watery','Egg-white','Other'] %}<option {% if existing and existing.discharge==x %}selected{% endif %}>{{ x or 'Not logged' }}</option>{% endfor %}</select></label>
+  <label>Exercise<input name="exercise" value="{{ existing.exercise if existing else '' }}" placeholder="Walk, gym, yoga…"></label>
+  <label>Temperature °F<input type="number" name="temperature" min="90" max="110" step="0.01" value="{{ existing.temperature if existing and existing.temperature is not none else '' }}" placeholder="Optional"></label>
+  <label>Medication / supplements<input name="medication" value="{{ existing.medication if existing else '' }}" placeholder="Optional personal note"></label>
+  <fieldset class="symptoms"><legend>Symptoms + body notes</legend>{% set chosen=(existing.symptoms.split(',') if existing and existing.symptoms else []) %}{% for s in all_symptoms %}<label class="check"><input type="checkbox" name="symptoms" value="{{ s }}" {% if s in chosen %}checked{% endif %}> {{ s }}</label>{% endfor %}</fieldset><div class="wide tiny custom-hint">Missing something? Add your own symptoms in <a href="{{ url_for('settings') }}">Settings</a>.</div>
+  <label class="wide">Notes<textarea name="notes" rows="4" placeholder="Anything else you want to remember?">{{ existing.notes if existing else '' }}</textarea></label>
+  <button class="button primary wide">Save check-in ✨</button>
+</form>{% endblock %}

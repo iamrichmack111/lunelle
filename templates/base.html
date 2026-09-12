@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" data-theme="noir">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#100d12">
+  <meta name="color-scheme" content="dark">
+  <title>{% block title %}Lunelle{% endblock %}</title>
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.webmanifest') }}?v=15">
+  <link rel="icon" href="{{ url_for('static', filename='icon.svg') }}?v=15" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=15">
+  <link rel="stylesheet" href="{{ url_for('static', filename='editorial.css') }}?v=15">
+  <link rel="stylesheet" href="{{ url_for('static', filename='core.css') }}?v=15">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vibe.css') }}?v=15">
+  <script defer src="{{ url_for('static', filename='app.js') }}?v=15"></script>
+</head>
+<body class="{% if session.get('user_id') %}app-mode{% else %}auth-mode{% endif %}">
+  {% if session.get('user_id') %}
+  <div class="app-shell">
+    <aside class="side-nav">
+      <a class="simple-brand" href="{{ url_for('dashboard') }}"><span class="brand-mark">L</span><span>Lunelle</span></a>
+      <nav class="primary-links">
+        <a href="{{ url_for('dashboard') }}"><span>⌂</span>Home</a>
+        <a href="{{ url_for('cycle_calendar') }}"><span>□</span>Calendar</a>
+        <a href="{{ url_for('daily_log') }}"><span>＋</span>Check-in</a>
+        <a href="{{ url_for('journal') }}"><span>⌁</span>Journal</a>
+        <a href="{{ url_for('sky') }}"><span>☾</span>Sky</a>
+        <a href="{{ url_for('insights') }}"><span>⌇</span>Insights</a>
+      </nav>
+      <nav class="secondary-links">
+        <a href="{{ url_for('cycle_compare') }}">Compare</a>
+        <a href="{{ url_for('discoveries') }}">Patterns</a>
+        <a href="{{ url_for('medications') }}">Medications</a>
+        <a href="{{ url_for('products') }}">Care cabinet</a>
+        <a href="{{ url_for('astrology') }}">Astrology</a>
+        <a href="{{ url_for('settings') }}">Settings</a>
+      </nav>
+      <div class="side-footer">
+        <button class="theme-simple" id="themeBtn" type="button">Theme</button>
+        <a href="{{ url_for('logout') }}">Log out</a>
+      </div>
+    </aside>
+
+    <header class="mobile-topbar">
+      <a class="simple-brand" href="{{ url_for('dashboard') }}"><span class="brand-mark">L</span><span>Lunelle</span></a>
+      <div><button class="theme-simple" id="themeBtnMobile" type="button">Theme</button><a href="{{ url_for('settings') }}">Settings</a></div>
+    </header>
+
+    <aside class="theme-panel simple-theme-panel" id="themePanel" hidden>
+      <div class="simple-theme-head"><strong>Choose a theme</strong><button id="themeClose" type="button">×</button></div>
+      <div class="simple-theme-grid">
+        {% for id,name in [('noir','Noir Rose'),('velvet','Velvet Plum'),('black-cherry','Black Cherry'),('emerald','Emerald Night')] %}
+        <button type="button" class="theme-option" data-theme-choice="{{ id }}"><span class="theme-swatch {{ id }}"><i></i><i></i><i></i></span><b>{{ name }}</b></button>
+        {% endfor %}
+      </div>
+    </aside>
+    <div class="modal-backdrop" id="themeBackdrop" hidden></div>
+
+    <main class="app-content">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category,message in messages %}<div class="flash-toast {{ category }}" data-flash><span>{{ message }}</span><button type="button">×</button></div>{% endfor %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+
+    <nav class="simple-mobile-dock">
+      <a href="{{ url_for('dashboard') }}"><span>⌂</span><small>Home</small></a>
+      <a href="{{ url_for('cycle_calendar') }}"><span>□</span><small>Calendar</small></a>
+      <a class="dock-add" href="{{ url_for('daily_log') }}"><span>＋</span><small>Check-in</small></a>
+      <a href="{{ url_for('sky') }}"><span>☾</span><small>Sky</small></a>
+      <a href="{{ url_for('journal') }}"><span>⌁</span><small>Journal</small></a>
+    </nav>
+  </div>
+  {% else %}
+  <main class="auth-main">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category,message in messages %}<div class="flash-toast auth-flash {{ category }}" data-flash><span>{{ message }}</span><button type="button">×</button></div>{% endfor %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  {% endif %}
+</body>
+</html>

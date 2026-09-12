@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Sky Tonight — Lunelle{% endblock %}
+{% block content %}
+<section class="sky-hero reveal" data-sky-page>
+  <div class="sky-copy">
+    <span class="eyebrow">LIVE SKY • PRIVATE LOCATION</span>
+    <h1>Let Lunelle<br><em>follow the sky.</em></h1>
+    <p class="lead compact">Connect your location for sunrise, sunset, moonrise, moonset, astronomical darkness and the bright stars above you tonight.</p>
+    <div class="sky-actions">
+      <button class="button primary magnetic" id="skyLocate" type="button"><span class="button-spark">✦</span> Use my location</button>
+      <button class="button secondary" id="skyLinkToggle" type="button">Link appearance to sky</button>
+    </div>
+    <label class="sky-remember"><input type="checkbox" id="skyRemember"> <span>Keep Sky Sync on this device <small>Stores only a rounded location in this browser.</small></span></label>
+    <p class="sky-privacy">Exact coordinates are used for the calculation and are never written to your Lunelle database.</p>
+  </div>
+  <div class="sky-dome-shell spotlight-card">
+    <canvas id="skyDome" class="sky-dome" width="720" height="720" aria-label="Interactive sky dome"></canvas>
+    <div class="sky-dome-center">
+      <span id="skyStateLabel">Waiting for location</span>
+      <strong id="skyClock">--:--</strong>
+      <small id="skyDomeCaption">Your visible bright stars will appear here.</small>
+    </div>
+    <div class="sky-horizon"></div>
+  </div>
+</section>
+
+<section class="sky-static-lunar panel reveal">
+  <div class="section-row">
+    <div><span class="eyebrow">LUNAR CLOCK</span><h2>The next four turning points</h2></div>
+    <div class="moon-now-chip"><span>{{ moon.icon }}</span><b>{{ moon.name }}</b><small>{{ moon.illumination }}%</small></div>
+  </div>
+  <div class="lunar-event-grid">
+    {% for e in lunar_events %}
+    <article class="lunar-event-card {% if loop.first %}next{% endif %}" data-lunar-event="{{ e.iso }}"><span>{{ e.symbol }}</span><div><small>{% if loop.first %}NEXT • {% endif %}{{ e.name|upper }}</small><strong>{{ e.date }}</strong><em data-lunar-countdown>calculating…</em></div></article>
+    {% endfor %}
+  </div>
+</section>
+
+<section id="skyLive" class="sky-live-grid is-waiting" aria-live="polite">
+  <article class="panel sky-event-panel reveal">
+    <div class="section-row"><div><span class="eyebrow">SUN CLOCK</span><h2>Light today</h2></div><span class="sky-state-pill" id="skyStatePill">Not connected</span></div>
+    <div class="solar-arc" id="solarArc"><div class="solar-path"></div><div class="sun-dot" id="sunDot"></div><span class="horizon-line"></span></div>
+    <div class="event-time-grid">
+      <div><span class="event-icon sunrise-icon"></span><small>Sunrise</small><strong id="sunriseTime">—</strong></div>
+      <div><span class="event-icon sunset-icon"></span><small>Sunset</small><strong id="sunsetTime">—</strong></div>
+      <div><span class="event-icon dusk-icon"></span><small>Stars begin</small><strong id="duskTime">—</strong></div>
+      <div><span class="event-icon dawn-icon"></span><small>Stars fade</small><strong id="dawnTime">—</strong></div>
+    </div>
+  </article>
+
+  <article class="panel sky-event-panel moonrise-panel reveal">
+    <span class="eyebrow">MOON CLOCK</span><h2>Moon above you</h2>
+    <div class="live-moon-wrap"><div class="live-moon" id="liveMoonVisual"><i></i></div><div><strong id="liveMoonName">{{ moon.name }}</strong><span id="liveMoonDetail">{{ moon.illumination }}% illuminated</span><small id="liveMoonSign">Moon in {{ moon.sign }}</small></div></div>
+    <div class="moon-times"><div><small>Moonrise</small><strong id="moonriseTime">—</strong></div><div><small>Moonset</small><strong id="moonsetTime">—</strong></div></div>
+  </article>
+</section>
+
+<section class="panel star-window-panel reveal">
+  <div class="section-row"><div><span class="eyebrow">STARS TONIGHT</span><h2>Your dark-sky window</h2></div><div class="sky-score" id="skyScore"><strong>—</strong><small>sky score</small></div></div>
+  <div class="dark-window-bar"><i id="darkWindowFill"></i><span class="dark-start" id="darkStart">Connect location</span><span class="dark-end" id="darkEnd"></span></div>
+  <p id="skyQuality" class="muted">This score considers moonlight and astronomical darkness. It intentionally does not pretend to know cloud cover.</p>
+  <div class="visible-star-grid" id="visibleStars"><div class="empty">Tap “Use my location” to reveal the bright stars positioned above your horizon.</div></div>
+</section>
+
+
+<section class="panel ritual-deck reveal">
+  <div class="section-row"><div><span class="eyebrow">CELESTIAL RITUAL DECK</span><h2>Turn sky moments into journal moments.</h2></div><span class="tiny">Reflection, not prediction.</span></div>
+  <div class="ritual-grid">
+    <a href="{{ url_for('journal', title='Sunrise intention', prompt='What do I want to make space for today? What would make today feel gentle and complete?', vibe='✨ Glowing') }}"><span>01</span><b>Sunrise Intention</b><small>Start with one clear feeling or priority.</small></a>
+    <a href="{{ url_for('journal', title='Sunset reset', prompt='What can I put down before tonight? What deserves to stay with me, and what can end here?', vibe='Night Reflective') }}"><span>02</span><b>Sunset Reset</b><small>Close the day without carrying all of it forward.</small></a>
+    <a href="{{ url_for('journal', title='New moon page', prompt='What feels ready for a fresh start? Write one intention, one boundary, and one tiny action.', vibe='Reflective Intuitive') }}"><span>03</span><b>New Moon Page</b><small>A reflection prompt tied to the lunar reset.</small></a>
+    <a href="{{ url_for('journal', title='Starlight reflection', prompt='What feels bigger than today’s stress? What am I proud I kept moving through?', vibe='Night Reflective') }}"><span>04</span><b>Starlight Reflection</b><small>Zoom out before bed.</small></a>
+  </div>
+</section>
+
+<section class="panel planet-watch reveal">
+  <div class="section-row"><div><span class="eyebrow">PLANET WATCH</span><h2>Bright planets above the horizon</h2></div><span class="tiny" id="planetViewTime">Connect location</span></div>
+  <div class="planet-watch-grid" id="planetWatch"><div class="empty">Once your sky is connected, Lunelle will check Venus, Jupiter, Mars, Saturn and Mercury for the local viewing time.</div></div>
+</section>
+
+<section class="sky-link-panel panel reveal">
+  <div><span class="eyebrow">SKY-LINKED MOTION</span><h2>Let the interface move with real light.</h2><p class="muted">When enabled, Lunelle keeps your dark theme but shifts its ambient glow through dawn, sunrise, day, golden hour, twilight and starlight based on your local sky.</p></div>
+  <div class="sky-state-demo"><span class="dawn">Dawn</span><span class="sunrise">Sunrise</span><span class="golden">Golden</span><span class="twilight">Twilight</span><span class="stars">Stars</span></div>
+</section>
+
+<p class="health-note">Sky times are astronomical calculations for the coordinates you provide. Visibility of stars also depends on clouds, light pollution, terrain and buildings. Astrology features remain for reflection/entertainment and do not alter health predictions.</p>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Home — Lunelle{% endblock %}
+{% block content %}
+<div class="vibe-home">
+  <header class="vibe-topline">
+    <div>
+      <span class="vibe-kicker">{{ today }}</span>
+      <h1>Hey, {{ session.get('display_name') or session.get('username') }} <span>✦</span></h1>
+      <p>Your rhythm is doing its thing. Here’s the pretty version.</p>
+    </div>
+    <a class="vibe-checkin magnetic" href="{{ url_for('daily_log') }}"><b>＋</b> Check in</a>
+  </header>
+
+  <section class="vibe-hero sensitive spotlight-card">
+    <div class="vibe-hero-copy">
+      <div class="vibe-pill"><i></i> CURRENT RHYTHM</div>
+      <h2>{{ phase.name }}</h2>
+      <p>{% if phase.day %}Cycle day {{ phase.day }} · moving at your own pace.{% else %}Add your first period to unlock your personal rhythm.{% endif %}</p>
+      <div class="vibe-hero-actions">
+        <a href="{{ url_for('cycle_calendar') }}">Open calendar <span>→</span></a>
+        <a href="{{ url_for('cycle_compare') }}">Compare cycles <span>↗</span></a>
+      </div>
+      <div class="vibe-moonline">
+        <div class="vibe-moon-icon">{{ moon.icon }}</div>
+        <div><small>Tonight’s moon</small><strong>{{ moon.name }}</strong><span>{{ moon.illumination }}% · {{ moon.sign }}</span></div>
+      </div>
+    </div>
+
+    <div class="vibe-orbit" style="--cycle-progress: {{ ((phase.day or 1) / (stats.avg_cycle or 28) * 360)|round }}deg">
+      <div class="orbit-halo h1"></div><div class="orbit-halo h2"></div><div class="orbit-halo h3"></div>
+      <div class="orbit-star s1">✦</div><div class="orbit-star s2">·</div><div class="orbit-star s3">✧</div>
+      <div class="orbit-core"><span>DAY</span><strong>{{ phase.day or '—' }}</strong><em>of ~{{ stats.avg_cycle or 28 }}</em></div>
+      <div class="orbit-bead"></div>
+    </div>
+  </section>
+
+  {% if reminders %}
+  <section class="vibe-reminders">
+    {% for r in reminders %}<div class="spotlight-card"><span>{{ r.icon }}</span><p>{{ r.text }}</p></div>{% endfor %}
+  </section>
+  {% endif %}
+
+  <section class="vibe-bento sensitive">
+    <article class="vibe-stat pink spotlight-card"><span>Next period</span><strong>{{ stats.next_period or '—' }}</strong><small>{% if stats.days_until is not none %}about {{ stats.days_until }} days{% else %}Add more history{% endif %}</small><i class="stat-spark">✦</i></article>
+    <article class="vibe-stat purple spotlight-card"><span>Average cycle</span><strong>{{ stats.avg_cycle or '—' }}{% if stats.avg_cycle %}<em>d</em>{% endif %}</strong><small>Your tracked rhythm</small><i class="stat-spark">◌</i></article>
+    <article class="vibe-stat cherry spotlight-card"><span>Check-in streak</span><strong>{{ streak }}<em>d</em></strong><small>Keep the glow going</small><i class="stat-spark">♥</i></article>
+    <article class="vibe-stat lilac spotlight-card"><span>Wellness reflection</span><strong>{% if score is not none %}{{ score }}<em>/100</em>{% else %}—{% endif %}</strong><small>Not a medical score</small><i class="stat-spark">☾</i></article>
+  </section>
+
+  <div class="vibe-two-col">
+    <section class="vibe-panel spotlight-card" id="period-tracker">
+      {% set active = periods|selectattr('end_date','equalto',none)|list %}
+      {% if active %}
+        {% set p=active[-1] %}
+        <div class="vibe-panel-head"><div><span>PERIOD</span><h2>Currently tracking</h2></div><b class="live-dot">LIVE</b></div>
+        <p>Started {{ p.start_date }}{% if stats.current_period_end %} · estimated end {{ stats.current_period_end }}{% endif %}</p>
+        <form method="post" action="{{ url_for('end_period',period_id=p.id) }}" class="vibe-inline-form"><input type="date" name="end_date" value="{{ today }}" required><button class="vibe-primary magnetic" type="submit">End period</button></form>
+      {% else %}
+        <div class="vibe-panel-head"><div><span>PERIOD</span><h2>Did it start?</h2></div><b class="mini-heart">♡</b></div>
+        <p>Log the first day once. Lunelle builds the rest around you.</p>
+        <form method="post" action="{{ url_for('start_period') }}" class="vibe-inline-form multi"><input type="date" name="start_date" value="{{ today }}" required><select name="flow"><option>light</option><option selected>medium</option><option>heavy</option><option>spotting</option></select><button class="vibe-primary magnetic" type="submit">Start period</button></form>
+      {% endif %}
+    </section>
+
+    <section class="vibe-panel mood-panel spotlight-card">
+      <div class="vibe-panel-head"><div><span>MOOD PULSE</span><h2>What’s the vibe?</h2></div><b class="mini-heart">✦</b></div>
+      <p>One tap. No essay required.</p>
+      <form class="vibe-moods" method="post" action="{{ url_for('mood_pulse') }}">
+        {% for mood,symbol in [('Radiant','✦'),('Good','☺'),('Calm','◌'),('Tender','♡'),('Low','☁'),('Over it','×')] %}<button name="mood" value="{{ mood }}" class="magnetic {% if today_log and today_log.mood==mood %}active{% endif %}"><b>{{ symbol }}</b><span>{{ mood }}</span></button>{% endfor %}
+      </form>
+    </section>
+  </div>
+
+  <section class="vibe-panel forecast-card spotlight-card">
+    <div class="vibe-panel-head"><div><span>THE NEXT 7 DAYS</span><h2>Your little forecast</h2></div><a href="{{ url_for('sky') }}">Sky tonight <b>↗</b></a></div>
+    <div class="vibe-forecast">{% for day in forecast %}<article class="{% if loop.first %}today{% endif %}"><small>{{ day.label }}</small><strong>{{ day.moon.icon }}</strong><span>{{ day.phase.name }}</span></article>{% endfor %}</div>
+  </section>
+
+  <section class="vibe-feature-row">
+    <a class="vibe-feature spotlight-card" href="{{ url_for('discoveries') }}"><span class="feature-no">01</span><div><small>PATTERNS</small><strong>{{ discoveries[0].title }}</strong><p>{{ discoveries[0].text }}</p></div><b>↗</b></a>
+    <a class="vibe-feature spotlight-card" href="{{ url_for('journal') }}"><span class="feature-no">02</span><div><small>JOURNAL</small><strong>{{ journal_count }} private entries</strong><p>Your thoughts stay yours.</p></div><b>↗</b></a>
+    <a class="vibe-feature spotlight-card" href="{{ url_for('sky') }}"><span class="feature-no">03</span><div><small>SKY</small><strong>{{ moon.name }}</strong><p>Sunrise, sunset, stars + planets.</p></div><b>↗</b></a>
+  </section>
+
+  <p class="health-note">Cycle and fertile-window dates are estimates for awareness only. They are not contraception or medical diagnosis.</p>
+</div>
+{% endblock %}

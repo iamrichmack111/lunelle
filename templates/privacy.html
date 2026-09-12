@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Privacy — Lunelle{% endblock %}
+{% block content %}
+<section class="legal-hero reveal"><span class="eyebrow">PRIVACY ARCHITECTURE</span><h1>Built to make control obvious.</h1><p>This page describes how this local Lunelle build handles data. It is a technical overview, not a substitute for a lawyer-reviewed privacy policy if you commercialize the product.</p></section>
+<section class="legal-grid">
+  <article class="panel reveal"><span>01</span><h2>Local database</h2><p>Account, cycle, journal and wellness records are stored in the Lunelle SQLite database on the machine running this app.</p></article>
+  <article class="panel reveal"><span>02</span><h2>Password hashing</h2><p>Passwords and optional PINs are stored as secure hashes through Werkzeug rather than plain text.</p></article>
+  <article class="panel reveal"><span>03</span><h2>Private PWA behavior</h2><p>The service worker is designed not to cache authenticated health screens for offline reading.</p></article>
+  <article class="panel reveal"><span>04</span><h2>Portable data</h2><p>Users can export CSV data and download a JSON backup from the command palette or account settings.</p></article>
+  <article class="panel reveal"><span>05</span><h2>Delete controls</h2><p>Tracked data can be cleared from settings. Commercial deployment should add a complete account deletion flow and retention policy.</p></article>
+  <article class="panel reveal"><span>06</span><h2>Before public launch</h2><p>Use HTTPS, a production WSGI server, CSRF protection, verified password recovery, database encryption strategy, and legal/privacy review.</p></article>
+</section>
+{% endblock %}

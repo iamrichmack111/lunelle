@@ -1,0 +1,21 @@
+{% extends "base.html" %}{% block title %}Cycle Compare — Lunelle{% endblock %}{% block content %}
+<section class="compare-hero reveal">
+  <span class="eyebrow">CYCLE COMPARE</span><h1>Same day.<br><em>Different cycle.</em></h1><p>See how your current point compares with the same cycle day in your own previous tracked cycles.</p>
+</section>
+{% if compare.ready %}
+<section class="compare-orbit panel spotlight-card reveal sensitive">
+  <div class="compare-day-orb"><small>CYCLE DAY</small><strong>{{ compare.cycle_day }}</strong><span>{{ phase.name }}</span></div>
+  <div class="compare-vs">VS</div>
+  <div class="compare-day-orb previous"><small>LAST MATCH</small><strong>{{ compare.previous.date.strftime('%b %d') }}</strong><span>cycle started {{ compare.previous.cycle_start.strftime('%b %d') }}</span></div>
+</section>
+<section class="compare-metrics reveal-group sensitive">
+{% for m in compare.metrics %}
+  <article class="compare-metric spotlight-card"><span>{{ m.label }}</span><div class="metric-vs"><strong>{% if m.now is not none %}{{ m.now|round(1) }}{% else %}—{% endif %}</strong><i>vs</i><b>{% if m.previous is not none %}{{ m.previous }}{% else %}—{% endif %}</b></div>{% if m.delta is not none %}<small>{{ '%+.1f'|format(m.delta) }} from your prior-cycle average</small>{% else %}<small>Log this metric today to compare it.</small>{% endif %}</article>
+{% endfor %}
+</section>
+<section class="panel reveal"><span class="eyebrow">PRIOR MATCHES</span><h2>The same day across your history.</h2><div class="prior-cycle-row">{% for p in compare.prior %}<article><small>{{ p.date.strftime('%b %d, %Y') }}</small>{% if p.log %}<strong>{{ p.log.mood or 'Check-in' }}</strong><span>Energy {{ p.log.energy }}/10 · Pain {{ p.log.pain }}/10</span>{% else %}<strong>No check-in</strong><span>This day wasn't logged.</span>{% endif %}</article>{% endfor %}</div></section>
+{% else %}
+<section class="panel empty-state-luxe reveal"><span>◌</span><h2>Comparison is warming up.</h2><p>{{ compare.reason }}</p><a class="button primary" href="{{ url_for('daily_log') }}">Add today's check-in</a></section>
+{% endif %}
+<p class="health-note">This compares your own self-reported logs. Differences are descriptive, not medical conclusions.</p>
+{% endblock %}

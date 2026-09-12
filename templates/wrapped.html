@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block title %}Wrapped — Lunelle{% endblock %}{% block content %}
+<section class="wrapped-shell reveal" id="wrappedStory">
+  <div class="wrapped-top"><div><span class="eyebrow">LUNELLE WRAPPED</span><h1>{{ month }}</h1></div><div class="wrapped-controls"><button class="round-control" id="wrappedPrev" type="button">←</button><span id="wrappedCount">1 / {{ stories|length }}</span><button class="round-control" id="wrappedNext" type="button">→</button></div></div>
+  <div class="wrapped-progress">{% for s in stories %}<i class="{% if loop.first %}active{% endif %}"></i>{% endfor %}</div>
+  <div class="wrapped-deck">
+  {% for s in stories %}<article class="wrapped-slide kind-{{ s.kind }} {% if loop.first %}active{% endif %}" data-wrapped-slide="{{ loop.index0 }}"><div class="wrapped-noise"></div><span class="eyebrow">{{ s.kicker }}</span><strong class="wrapped-big">{{ s.big }}</strong><h2>{{ s.title }}</h2><p>{{ s.copy }}</p><div class="wrapped-orbit"><i></i><b></b><em></em></div></article>{% endfor %}
+  </div>
+  <div class="wrapped-hint">Swipe or use the arrows · your data stays private</div>
+</section>
+{% endblock %}

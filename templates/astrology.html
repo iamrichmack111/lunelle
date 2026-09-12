@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}Astrology Lab — Lunelle{% endblock %}
+{% block content %}
+<div class="page-head astro-head">
+  <div>
+    <span class="eyebrow">ASTROLOGY LAB • SWISS EPHEMERIS</span>
+    <h1>Cycle × Cosmos</h1>
+    <p class="lead compact">Real astronomical planetary longitudes with an astrology layer for journaling and pattern exploration.</p>
+  </div>
+  <form class="date-jump" method="get">
+    <label>Ephemeris date<input name="date" type="date" value="{{ selected }}"></label>
+    <button class="button secondary" type="submit">Jump</button>
+  </form>
+</div>
+
+<section class="cosmic-hero panel">
+  <div class="moon-big">{{ moon.icon }}</div>
+  <div>
+    <span class="eyebrow">MOON NOW</span>
+    <h2>{{ moon.name }}</h2>
+    <p>{{ moon.illumination }}% illuminated • {{ moon.sign_symbol }} {{ moon.degree|round(2) }}° {{ moon.sign }}</p>
+  </div>
+  <div class="moon-meter"><span style="width:{{ moon.illumination }}%"></span></div>
+</section>
+
+<section class="panel">
+  <div class="section-row">
+    <div><span class="eyebrow">DAILY SKY</span><h2>Planetary ephemeris</h2></div>
+    <span class="tiny">Tropical zodiac • geocentric positions • Moshier ephemeris</span>
+  </div>
+  <div class="planet-grid">
+    {% for p in positions %}
+    <article class="planet-card">
+      <div class="planet-symbol">{{ p.symbol }}</div>
+      <div><strong>{{ p.name }}</strong><span>{{ p.sign_symbol }} {{ p.degree|round(2) }}° {{ p.sign }}</span><small>{{ p.element }} • {{ p.modality }}</small></div>
+      {% if p.retrograde %}<b class="retro">Rx</b>{% endif %}
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<div class="two-col">
+  <section class="panel">
+    <span class="eyebrow">YOUR ASTRO PROFILE</span>
+    <h2>Birth details</h2>
+    <form method="post" action="{{ url_for('astrology_profile') }}">
+      <label>Birth date<input name="birth_date" type="date" value="{{ user.birth_date or '' }}"></label>
+      <label>Birth time<input name="birth_time" type="time" value="{{ user.birth_time or '' }}"></label>
+      <label>Birth place<input name="birth_place" value="{{ user.birth_place or '' }}" placeholder="Atlanta, GA"></label>
+      <button class="button primary full">Save birth profile</button>
+    </form>
+    <p class="tiny">Birth place is saved for future houses/Ascendant support. Current natal planets use the entered date/time; time is treated as UTC for this lightweight local build.</p>
+  </section>
+
+  <section class="panel">
+    <span class="eyebrow">NEXT CYCLE ESTIMATE</span>
+    <h2>{% if stats.next_period %}{{ stats.next_period }}{% else %}Not enough cycle data{% endif %}</h2>
+    {% if next_moon %}
+      <div class="next-moon"><span>{{ next_moon.icon }}</span><div><strong>{{ next_moon.name }}</strong><small>{{ next_moon.illumination }}% • Moon in {{ next_moon.sign }}</small></div></div>
+    {% endif %}
+    <p class="tiny">The cycle date is a health estimate. The moon information simply shows the astronomical phase expected on that date; astrology does not improve medical cycle prediction.</p>
+  </section>
+</div>
+
+{% if natal %}
+<section class="panel">
+  <span class="eyebrow">NATAL SNAPSHOT</span>
+  <h2>Your planetary placements</h2>
+  {% if natal_moon %}<p class="muted">Born under {{ natal_moon.icon }} {{ natal_moon.name }} • {{ natal_moon.illumination }}% illuminated.</p>{% endif %}
+  <div class="planet-grid natal-grid">
+    {% for p in natal %}
+      <article class="planet-card"><div class="planet-symbol">{{ p.symbol }}</div><div><strong>{{ p.name }}</strong><span>{{ p.sign_symbol }} {{ p.degree|round(2) }}° {{ p.sign }}</span><small>{{ p.element }} • {{ p.modality }}</small></div>{% if p.retrograde %}<b class="retro">Rx</b>{% endif %}</article>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section class="panel">
+  <span class="eyebrow">MOON PHASE HISTORY</span>
+  <h2>What the sky looked like when each tracked period began</h2>
+  {% if cycle_moons %}
+  <div class="cycle-moon-grid">
+    {% for m in cycle_moons %}
+      <article><div>{{ m.icon }}</div><strong>{{ m.date }}</strong><span>{{ m.name }}</span><small>{{ m.illumination }}% • {{ m.sign_symbol }} {{ m.sign }}</small></article>
+    {% endfor %}
+  </div>
+  {% else %}<div class="empty">Track a period and its moon phase will appear here.</div>{% endif %}
+</section>
+
+<section class="panel astro-note">
+  <strong>About the astrology layer</strong>
+  <p class="muted">Planet positions and moon phases here are astronomical calculations. Zodiac interpretations, natal meanings, and cycle-to-astrology comparisons are for personal reflection/entertainment and are not established medical predictors.</p>
+</section>
+{% endblock %}

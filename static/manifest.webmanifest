@@ -1,0 +1,11 @@
+{
+  "name":"Lunelle — Private Rhythm",
+  "short_name":"Lunelle",
+  "description":"Private cycle, wellness, lunar rhythm and live-sky tracking.",
+  "start_url":"/",
+  "display":"standalone",
+  "background_color":"#0c090a",
+  "theme_color":"#0c090a",
+  "orientation":"portrait-primary",
+  "icons":[{"src":"/static/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}

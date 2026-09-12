@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Log in — Lunelle{% endblock %}
+{% block content %}
+<section class="simple-auth-shell">
+  <div class="auth-visual">
+    <div class="auth-moon"><i></i></div>
+    <span class="auth-brand">Lunelle</span>
+    <h1>Your cycle.<br>Your sky.<br>Your space.</h1>
+    <p>Your private local account, without extra signup steps.</p>
+  </div>
+  <form class="simple-auth-card" method="post" action="{{ url_for('login') }}" autocomplete="on">
+    <div class="auth-title"><span>WELCOME BACK</span><h2>Log in</h2><p>Use the username you created on this installation.</p></div>
+    <label><span>Username</span><input name="username" value="{{ username or '' }}" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="Your username" required autofocus></label>
+    <label><span>Password</span><div class="simple-password"><input id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="Your password" required><button type="button" data-password-toggle="loginPassword">Show</button></div></label>
+    <button class="simple-primary" type="submit">Log in</button>
+    <div class="auth-links"><a href="{{ url_for('reset_password') }}">Reset password</a><a href="{{ url_for('signup') }}">Create account</a></div>
+  </form>
+</section>
+{% endblock %}
