@@ -29,16 +29,13 @@
 
 It is designed as a personal wellness tool — not a diagnostic system and not a contraceptive method.
 
-## 🎥 Product demo
+## 🎥 Lunelle Demo
 
-[![Watch the Lunelle product demo](docs/demo/lunelle-demo.gif)](https://github.com/iamrichmack111/lunelle/releases/latest)
+![Lunelle animated product demo](docs/demo/lunelle-demo.gif)
 
-**▶ Click the animation for the full HD narrated demo.**
+### Full product demo
 
-The README uses a lightweight animated preview so GitHub can render it reliably.  
-The full H.264 narrated product demo is attached to the latest GitHub Release.
-
-
+The animation above was recorded automatically with Playwright.
 ## 🖼️ Screens
 
 <table>
