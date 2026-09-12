@@ -4,3 +4,8 @@ period_tracker.db
 *.db-wal
 .venv/
 __pycache__/
+*.pyc
+node_modules/
+tools/demo/node_modules/
+.DS_Store
+tools/demo/.voice-venv/

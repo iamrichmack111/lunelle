@@ -1,5 +1,13 @@
+.git
+.github
 .venv
 __pycache__
 *.pyc
+node_modules
+tools/demo/node_modules
+tools/demo/.voice-venv
 period_tracker.db
-.git
+.secret_key
+.DS_Store
+docs/demo/*.webm
+docs/demo/*.mp4

@@ -1,0 +1,11 @@
+Meet Lunelle, a private cycle and wellness companion built around your rhythm and your sky.
+
+Track your cycle from a calm, animated home view. Explore predicted dates on the calendar, and capture mood, pain, energy, sleep, stress, flow, and symptoms with a daily check-in.
+
+Keep the story behind the numbers in your private journal.
+
+Sky Sync connects your experience to sunrise, sunset, moon phases, local darkness, bright stars, and planets.
+
+Lunelle can compare cycles and surface descriptive patterns without pretending to diagnose.
+
+Your history stays under your control, with local data storage, export tools, themes, PWA support, and Docker deployment.

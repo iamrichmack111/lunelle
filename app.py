@@ -8,7 +8,7 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 import swisseph as swe
 
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(APP_DIR, "period_tracker.db")
+DB_PATH = os.environ.get("LUNELLE_DB_PATH", os.path.join(APP_DIR, "period_tracker.db"))
 
 app = Flask(__name__)
 

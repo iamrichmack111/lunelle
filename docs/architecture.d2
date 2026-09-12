@@ -1,0 +1,70 @@
+direction: right
+
+user: {
+  label: "Lunelle User"
+  shape: person
+}
+
+pwa: {
+  label: "Lunelle PWA"
+  icon: https://cdn.simpleicons.org/pwa/FFFFFF
+  style.fill: "#17121b"
+  style.stroke: "#d77aa8"
+}
+
+flask: {
+  label: "Flask App"
+  icon: https://cdn.simpleicons.org/flask/FFFFFF
+  style.fill: "#17121b"
+  style.stroke: "#b58ad9"
+}
+
+sqlite: {
+  label: "Private SQLite"
+  icon: https://cdn.simpleicons.org/sqlite/FFFFFF
+  shape: cylinder
+  style.fill: "#17121b"
+  style.stroke: "#d77aa8"
+}
+
+ephemeris: {
+  label: "Swiss Ephemeris"
+  style.fill: "#17121b"
+  style.stroke: "#8f7fe8"
+}
+
+sky: {
+  label: "Sky Sync\nSun · Moon · Stars"
+  style.fill: "#17121b"
+  style.stroke: "#7289da"
+}
+
+docker: {
+  label: "Docker / GHCR"
+  icon: https://cdn.simpleicons.org/docker/FFFFFF
+  style.fill: "#17121b"
+  style.stroke: "#4da6ff"
+}
+
+actions: {
+  label: "GitHub Actions"
+  icon: https://cdn.simpleicons.org/githubactions/FFFFFF
+  style.fill: "#17121b"
+  style.stroke: "#8f7fe8"
+}
+
+playwright: {
+  label: "Playwright Demo"
+  icon: https://cdn.simpleicons.org/playwright/FFFFFF
+  style.fill: "#17121b"
+  style.stroke: "#57c78b"
+}
+
+user -> pwa: "tracks + journals"
+pwa -> flask: "HTTPS / app routes"
+flask -> sqlite: "private cycle data"
+flask -> ephemeris: "planet + moon math"
+flask -> sky: "sunrise / sunset / sky"
+actions -> docker: "build + publish"
+playwright -> pwa: "screenshots + video"
+docker -> flask: "runs"

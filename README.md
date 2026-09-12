@@ -1,226 +1,157 @@
-# Lunelle v1.5 — Velvet Motion
+<div align="center">
 
+# 🌙 Lunelle
 
-## v1.5 visual rebuild
+### Private cycle intelligence with a living connection to your sky.
 
-- Dark-pop / luxury Y2K visual direction
-- Animated cycle orbit on Home
-- Glossy bento statistics and richer mood controls
-- Pointer-reactive card lighting
-- Magnetic buttons and small tap spark effects
-- Animated ambient color fields and navigation states
-- More dramatic login/signup visuals
-- PWA cache bumped to v15 so the new design replaces older assets
+<p>
+  <a href="docs/demo/lunelle-demo-narrated.mp4"><img alt="Watch Demo" src="https://img.shields.io/badge/▶_WATCH_DEMO-d45c95?style=for-the-badge"></a>
+  <a href="https://github.com/iamrichmack111/lunelle/wiki"><img alt="Wiki" src="https://img.shields.io/badge/📚_WIKI-7d64c8?style=for-the-badge"></a>
+  <a href="https://github.com/iamrichmack111/lunelle/pkgs/container/lunelle"><img alt="Docker" src="https://img.shields.io/badge/🐳_DOCKER-2496ED?style=for-the-badge"></a>
+  <a href="https://github.com/iamrichmack111/lunelle/releases"><img alt="Releases" src="https://img.shields.io/badge/✨_RELEASES-a74c78?style=for-the-badge"></a>
+</p>
 
-Lunelle now uses **username + password only** for local accounts. The app opens directly to login when signed out and directly to Home when signed in. The public marketing shell, forced onboarding flow, giant Universe dashboard, command palette, and floating action UI were removed in favor of a simpler app-style navigation shell.
+![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-App-111111?logo=flask&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-Private_Data-003B57?logo=sqlite&logoColor=white)
+![Playwright](https://img.shields.io/badge/Playwright-Demo-2EAD33?logo=playwright&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-GHCR-2496ED?logo=docker&logoColor=white)
+![PWA](https://img.shields.io/badge/PWA-Installable-5A0FC8?logo=pwa&logoColor=white)
+![Visibility](https://img.shields.io/badge/Repository-Private-191919?logo=github&logoColor=white)
 
-Existing databases remain compatible. The legacy database column used by older versions is retained internally so upgrades do not require destructive migration, but it is no longer part of signup, login, reset, or the user interface.
-
-# Lunelle v1.3 — Atelier
-
-## Visual redesign
-
-- Replaced the neon sci-fi dashboard with a restrained dark editorial interface
-- New cycle dial and time scrubber with softer motion and less visual noise
-- New luxury typography, spacing, form controls, navigation and buttons
-- Rebuilt landing page, login and signup screens in the same visual system
-- Existing themes now use muted rose, plum, cherry, violet and sage palettes instead of neon colors
-- Removed persistent starfield/cursor-glow visuals from the main presentation
-- Updated PWA cache and icon for the new design
-
-All existing cycle, wellness, journal, sky, astrology, comparison, discovery and Wrapped features remain available.
-
-# Lunelle v1.2 — Universe
-
-Lunelle now opens into an interactive personal universe instead of a static dashboard.
-
-## New in v1.2
-
-- **Lunelle Universe** home screen with an animated orbital canvas
-- Time scrubber from two weeks back to three weeks ahead
-- Cycle phase, cycle day, date and lunar state animate together as time moves
-- Unified personal timeline for period events, daily check-ins and journal entries
-- **Cycle Compare** for the same cycle day across previous tracked cycles
-- **Pattern Discovery** with descriptive observations from the user's own logs
-- **Lunelle Wrapped** animated monthly story with mood, energy, sleep, symptoms and cycle rhythm
-- **Memory Constellation** turns private journal entries into a living star map
-- Landing page and navigation updated around Universe, Compare, Discoveries and Wrapped
-- PWA shell bumped to v12 so older cached UI is replaced
-
-Pattern Discovery and Cycle Compare are descriptive summaries only. They do not diagnose conditions or explain causation.
+</div>
 
 ---
 
-# Lunelle v1.1 — Sky Sync
+## ✦ What is Lunelle?
 
-Lunelle now links the cycle/wellness experience to the real sky using Swiss Ephemeris plus browser geolocation.
+**Lunelle** is a private cycle and wellness companion that combines menstrual tracking, journaling, personal patterns, moon phases, planetary ephemeris data, sunrise/sunset timing, and an animated sky-aware interface.
 
-## New in v1.1
+It is designed as a personal wellness tool — not a diagnostic system and not a contraceptive method.
 
-- New **Sky Tonight** experience with a live animated sky dome
-- Location-aware sunrise, sunset, astronomical dawn/dusk, moonrise and moonset
-- Exact upcoming New Moon, First Quarter, Full Moon and Last Quarter calculations
-- Visible bright-star map and star list calculated for the local horizon
-- Stargazing score based on astronomical darkness + moonlight (not weather/clouds)
-- **Sky Sync** mode that shifts Lunelle's ambient glow through dawn, sunrise, day, golden hour, twilight and starlight
-- Optional device-only remembered sky location, rounded before storage; exact coordinates are never saved in the Lunelle database
-- Live lunar-event countdowns
-- Sunrise Intention, Sunset Reset, New Moon Page and Starlight Reflection journal starters
-- New Sky entry in desktop navigation, mobile dock and Cmd/Ctrl+K command palette
-- PWA cache bumped to v11 so the new visuals replace older cached assets
+## 🎥 Product demo
 
-## Sky privacy
+[▶ **Watch the narrated Playwright demo**](docs/demo/lunelle-demo-narrated.mp4)
 
-Lunelle does not write sky coordinates to SQLite. When the user taps **Use my location**, coordinates are used for the sky calculation. If **Keep Sky Sync on this device** is enabled, only rounded coordinates are stored in that browser's local storage so Sky Sync can refresh automatically.
+> If MP4 conversion was unavailable on the capture machine, use the [WebM recording](docs/demo/lunelle-demo.webm).
 
----
+## 🖼️ Screens
 
-# Lunelle v1.0 — Nightglass
+<table>
+<tr>
+<td width="50%"><img src="docs/screenshots/01-login.png" alt="Lunelle login"></td>
+<td width="50%"><img src="docs/screenshots/02-home.png" alt="Lunelle home"></td>
+</tr>
+<tr>
+<td><img src="docs/screenshots/03-calendar.png" alt="Cycle calendar"></td>
+<td><img src="docs/screenshots/06-sky.png" alt="Sky Sync"></td>
+</tr>
+<tr>
+<td><img src="docs/screenshots/07-insights.png" alt="Insights"></td>
+<td><img src="docs/screenshots/05-journal.png" alt="Private journal"></td>
+</tr>
+</table>
 
-A premium dark cycle + wellness companion built with Flask, SQLite, vanilla JavaScript, and Swiss Ephemeris.
+## ✨ Highlights
 
-## What changed in v1.0
+- 🩸 Period start/end tracking and personalized cycle estimates
+- 🌙 Moon phase, lunar events and cycle × cosmos views
+- 🌅 Sunrise, sunset, twilight and local Sky Sync
+- ⭐ Stars/planet visibility and stargazing information
+- 📓 Private journal and memory history
+- 💗 Mood, pain, energy, sleep, stress and symptom check-ins
+- 📊 Cycle Compare and descriptive pattern discovery
+- 💊 Medication/supplement tracking
+- 👜 Care-product inventory
+- 🔐 Username/password authentication + optional PIN privacy layer
+- 📦 CSV/JSON data export
+- 📱 Installable PWA
+- 🎨 Multiple dark feminine themes
+- 🐳 Docker + GHCR delivery
+- 🎭 Automated Playwright screenshots/video
 
-- Completely redesigned premium dark interface
-- Animated canvas starfield and orbital light system
-- Reactive card spotlights, magnetic buttons, ripples, parallax, scroll reveals, animated counters, and smoother page transitions
-- New commercial landing page with product mockup, privacy story, feature bento, and conversion sections
-- Three-step onboarding for display name, focus, and theme
-- Rebuilt login and signup experience
-- Command palette with `Ctrl/Cmd + K`
-- Quick-add sheet and mobile bottom navigation
-- Six dark atmosphere themes retained and polished
-- Pricing page structured for Free and Plus ($4.99/mo launch concept)
-- Technical privacy page
-- Downloadable JSON backup in addition to CSV export
-- Updated PWA shell and cache version
-- Auth startup self-test updated to cover signup → onboarding → logout → login
-- Personal database and `.secret_key` are not included in release ZIPs
+## 🧭 Architecture
 
-## Commerce status
+<img src="docs/architecture.svg" alt="Lunelle D2 architecture diagram" width="100%">
 
-The product UI is subscription-ready, but **payment checkout is not wired into this local build**. Connect Stripe (or another processor), add server-side entitlement checks, and complete legal/privacy review before charging users.
+D2 source: [`docs/architecture.d2`](docs/architecture.d2)
 
-## Run
+## 🚀 Run locally
 
 ```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ./start.sh
 ```
 
-Then open `http://127.0.0.1:5055`.
+Open:
 
-## Upgrade without losing your account
+```text
+http://127.0.0.1:5055
+```
 
-Unzip the release over your existing `richmack-period-tracker` folder. Your account and health data live in `period_tracker.db`, which is intentionally excluded from release ZIPs.
+## 🐳 Docker
+
+Build:
+
+```bash
+docker build -t lunelle .
+```
+
+Run with persistent private data:
+
+```bash
+docker run --rm \
+  -p 5055:5055 \
+  -v lunelle-data:/data \
+  -e SECRET_KEY="$(openssl rand -hex 32)" \
+  lunelle
+```
+
+Or pull this repository's private GHCR image:
+
+```bash
+echo "$(gh auth token)" | docker login ghcr.io -u iamrichmack111 --password-stdin
+docker pull ghcr.io/iamrichmack111/lunelle:latest
+docker run --rm -p 5055:5055 -v lunelle-data:/data ghcr.io/iamrichmack111/lunelle:latest
+```
+
+## 🧪 Capture the demo again
+
+```bash
+cd tools/demo
+npm install
+npx playwright install chromium
+BASE_URL=http://127.0.0.1:5055 npm run demo
+```
+
+The recorder creates a disposable account against a fresh Docker database so **real user health data is never needed for repository screenshots or video**.
+
+## 🔏 Privacy
+
+Lunelle stores sensitive cycle data locally in SQLite by default. Database files and local secret keys are excluded from Git.
+
+Before any public/commercial deployment, add production-grade HTTPS, secure secret storage, formal privacy documentation, account lifecycle controls, backups/encryption, and a security review.
+
+## 📚 Documentation
+
+- [Wiki](https://github.com/iamrichmack111/lunelle/wiki)
+- [Architecture](https://github.com/iamrichmack111/lunelle/wiki/Architecture)
+- [Docker](https://github.com/iamrichmack111/lunelle/wiki/Docker)
+- [Privacy](https://github.com/iamrichmack111/lunelle/wiki/Privacy-and-Security)
+- [Roadmap](https://github.com/iamrichmack111/lunelle/wiki/Roadmap)
+
+## ⚕️ Health disclaimer
+
+Predictions and pattern summaries are estimates for personal awareness only. Lunelle does not diagnose health conditions and should not be used as contraception or as a replacement for medical advice.
 
 ---
 
-# Lunelle v0.7
+<div align="center">
 
-A redesigned private cycle, wellness, moon and astrology tracker.
+**Lunelle v1.5.1**
 
-## Login reliability changes
+Private by design · animated by the sky
 
-- `./start.sh` now runs an isolated signup/logout/login self-test before launching.
-- Login uses username + password only.
-- Local password reset is available at `/reset-password` when accessed from the computer running Lunelle.
-- The service worker now clears old Lunelle caches and uses network-first static assets, preventing stale CSS/JS after upgrades.
-- Existing `period_tracker.db` data is preserved when unzipping over the same project folder.
-
-
-## Login fix in v0.6.1
-
-- Log in with your **username + password**
-- Clearer errors distinguish "account not found" from "wrong password"
-- Signup signs you in immediately
-- Session secret is saved locally in `.secret_key`, so restarting the app no longer invalidates login sessions
-- Normal `./start.sh` launch no longer uses Flask's debug reloader
-
-### Important when upgrading
-
-User accounts live in `period_tracker.db`.
-
-If you unzip this into the **same existing app folder**, your database is left alone and your account remains available.
-
-If you deleted the old app folder or installed into a brand-new folder, the old account database is not present. In that case, use **Sign up** once to create a new local account.
-
-
-# Lunelle by Richmack OS
-
-A feminine, private, local-first cycle + wellness tracker built with Flask, SQLite, and Swiss Ephemeris.
-
-## Features
-
-- Signup/login with hashed passwords
-- Period start/end tracking
-- Estimated next period and current period end
-- Estimated cycle phase and cycle day
-- Monthly visual cycle calendar
-- Recorded vs predicted period days
-- Estimated fertile window + ovulation marker for cycle awareness only
-- Moon phase on every calendar day
-- Detailed daily check-ins: mood, cramps/pain, energy, stress, sleep, hydration, flow, libido, discharge, exercise, temperature, medication/supplements, symptoms and notes
-- Editable same-day / historical check-ins
-- Check-in streaks
-- Glow Insights: cycle variability, symptoms, moods, sleep, stress, energy and phase summaries
-- Private Glow Journal
-- In-app reminder preferences and optional browser notification permission
-- CSV export including periods, detailed logs and journal entries
-- Data wipe controls
-- Astrology Lab powered by Swiss Ephemeris
-- Planetary positions, zodiac placements, retrogrades, moon phase/illumination
-- Birth profile + natal planetary snapshot
-- Cycle-start moon-phase history
-- Six saved themes: Blush Bloom, Lavender Dream, Rose Gold, Cherry Kiss, Soft Sage, Midnight Moon
-- Responsive mobile-friendly feminine UI
-
-## Important health note
-
-Cycle, ovulation, fertile-window and period predictions are estimates only. They can shift for many reasons. Do not use this app as contraception, to diagnose a medical condition, or as a substitute for professional medical advice. Astrology features are for reflection/entertainment and do not drive medical predictions.
-
-## Run
-
-```bash
-./start.sh
-```
-
-Then open `http://127.0.0.1:5055`.
-
-## Production notes
-
-Before putting this on the public internet, set a strong `SECRET_KEY`, disable Flask debug mode, use HTTPS + gunicorn, add CSRF protection and a production-grade account recovery flow, consider database encryption, and review applicable privacy requirements for health data.
-
-
-## v0.6 daily companion features
-
-- Optional 4–8 digit in-app PIN lock
-- Custom symptoms in daily check-ins
-- Medication / supplement reminder list with daily taken status
-- Sleep and hydration goals on the dashboard
-- Printable doctor-share summary (print or save as PDF from the browser)
-- 30-check-in energy / pain / stress trend chart
-- Installable PWA support with manifest, icon, and service worker
-- Privacy-conscious service worker: authenticated pages are not cached offline
-
-Medication, fertility, ovulation, cycle-phase, astrology, and wellness features are for tracking/awareness only and are not medical advice or contraception.
-
-## v0.8 — Dark Universe redesign
-
-Lunelle now defaults to a dark, animated interface with six dark themes:
-Noir Rose, Velvet Plum, Black Cherry, Cosmic Grape, Emerald Night, and Ultraviolet.
-
-New in v0.8:
-
-- Animated aurora + star field
-- Moon/orbit animations and interactive hover tilt
-- Privacy Blur button for quickly obscuring sensitive dashboard details
-- Daily Glow Score (a non-medical reflection from sleep, hydration, energy, and stress)
-- One-tap Mood Pulse
-- Personalized non-medical daily ritual card
-- Seven-day cycle + moon forecast
-- Care Cabinet inventory with low-stock warnings
-- Monthly Recap for mood, symptoms, sleep, energy, pain, and cycle averages
-- Refreshed login, signup, dashboard, landing page, navigation, and mobile layouts
-- PWA cache bumped to v8 so older styles are removed on activation
-
-Glow Score and cycle forecasts are informational reflections/estimates only and are not medical diagnosis, treatment, or contraception.
+</div>
