@@ -9,3 +9,7 @@ node_modules/
 tools/demo/node_modules/
 .DS_Store
 tools/demo/.voice-venv/
+docs/demo/lunelle-demo.webm
+docs/demo/lunelle-demo.mp4
+docs/demo/lunelle-demo-narrated.mp4
+.release-assets/

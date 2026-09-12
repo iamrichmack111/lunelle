@@ -57,15 +57,12 @@
     <div class="modal-backdrop" id="themeBackdrop" hidden></div>
 
     <main class="app-content">
-  {% else %}
-  <main class="auth-main">
-  {% endif %}
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% for category,message in messages %}<div class="flash-toast {% if not session.get('user_id') %}auth-flash {% endif %}{{ category }}" data-flash><span>{{ message }}</span><button type="button">×</button></div>{% endfor %}
-    {% endwith %}
-    {% block content %}{% endblock %}
-  </main>
-  {% if session.get('user_id') %}
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category,message in messages %}<div class="flash-toast {{ category }}" data-flash><span>{{ message }}</span><button type="button">×</button></div>{% endfor %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+
     <nav class="simple-mobile-dock">
       <a href="{{ url_for('dashboard') }}"><span>⌂</span><small>Home</small></a>
       <a href="{{ url_for('cycle_calendar') }}"><span>□</span><small>Calendar</small></a>
@@ -74,7 +71,13 @@
       <a href="{{ url_for('journal') }}"><span>⌁</span><small>Journal</small></a>
     </nav>
   </div>
+  {% else %}
+  <main class="auth-main">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category,message in messages %}<div class="flash-toast auth-flash {{ category }}" data-flash><span>{{ message }}</span><button type="button">×</button></div>{% endfor %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
   {% endif %}
 </body>
 </html>
-

@@ -1,3 +1,14 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+[ -f templates/base.html ] || {
+  echo "Run this from the Lunelle repo root."
+  exit 1
+}
+
+cp templates/base.html "templates/base.html.bak.$(date +%Y%m%d-%H%M%S)"
+
+cat > templates/base.html <<'EOF'
 <!doctype html>
 <html lang="en" data-theme="noir">
 <head>
@@ -78,3 +89,30 @@
 </body>
 </html>
 
+EOF
+
+python3 - <<'PY'
+from pathlib import Path
+import re, sys
+
+failed = False
+for p in sorted(Path("templates").glob("*.html")):
+    text = p.read_text(encoding="utf-8")
+    names = re.findall(r"{%\s*block\s+([A-Za-z_][A-Za-z0-9_]*)", text)
+    dupes = sorted({name for name in names if names.count(name) > 1})
+    if dupes:
+        failed = True
+        print(f"ERROR {p}: duplicate Jinja blocks: {', '.join(dupes)}")
+
+if failed:
+    sys.exit(1)
+
+print("Jinja block preflight: PASS")
+PY
+
+docker rm -f lunelle-playwright-demo >/dev/null 2>&1 || true
+
+echo
+echo "Template fixed."
+echo "Now rerun:"
+echo "  ./polish-and-push.sh"
