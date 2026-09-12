@@ -5,7 +5,7 @@
 ### Private cycle intelligence with a living connection to your sky.
 
 <p>
-  <a href="docs/demo/lunelle-demo-preview.mp4"><img alt="Watch Demo" src="https://img.shields.io/badge/▶_WATCH_DEMO-d45c95?style=for-the-badge"></a>
+  <a href="https://github.com/iamrichmack111/lunelle/releases/latest"><img alt="Watch Demo" src="https://img.shields.io/badge/▶_WATCH_DEMO-d45c95?style=for-the-badge"></a>
   <a href="https://github.com/iamrichmack111/lunelle/wiki"><img alt="Wiki" src="https://img.shields.io/badge/📚_WIKI-7d64c8?style=for-the-badge"></a>
   <a href="https://github.com/iamrichmack111/lunelle/pkgs/container/lunelle"><img alt="Docker" src="https://img.shields.io/badge/🐳_DOCKER-2496ED?style=for-the-badge"></a>
   <a href="https://github.com/iamrichmack111/lunelle/releases"><img alt="Releases" src="https://img.shields.io/badge/✨_RELEASES-a74c78?style=for-the-badge"></a>
@@ -31,11 +31,13 @@ It is designed as a personal wellness tool — not a diagnostic system and not a
 
 ## 🎥 Product demo
 
-The repository contains a compressed web preview for fast cloning. The **full HD narrated demo** is attached to the GitHub Release.
+[![Watch the Lunelle product demo](docs/demo/lunelle-demo.gif)](https://github.com/iamrichmack111/lunelle/releases/latest)
 
-[▶ **Watch the narrated Playwright demo**](docs/demo/lunelle-demo-preview.mp4)
+**▶ Click the animation for the full HD narrated demo.**
 
-> If MP4 conversion was unavailable on the capture machine, use the [WebM recording](docs/demo/lunelle-demo-preview.mp4).
+The README uses a lightweight animated preview so GitHub can render it reliably.  
+The full H.264 narrated product demo is attached to the latest GitHub Release.
+
 
 ## 🖼️ Screens
 
